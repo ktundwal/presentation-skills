@@ -43,14 +43,16 @@ Write the deck as a single `.md` file with Marp frontmatter, following the patte
 ### 3. Export each slide as a PNG image
 
 ```bash
-npx @marp-team/marp-cli <deck>.md --images png --image-scale 2 --allow-local-files -o <output-dir>/slide.png
+npx @marp-team/marp-cli <deck>.md --images png --allow-local-files -o <output-dir>/slide.png
 ```
 
-This produces `slide.001.png`, `slide.002.png`, etc. Use `--image-scale 2` for crisp output. The `--allow-local-files` flag is required for any local images referenced in the deck.
+This produces `slide.001.png`, `slide.002.png`, etc. at 1280x720 (native slide resolution). The `--allow-local-files` flag is required for any local images referenced in the deck. Do NOT use `--image-scale 2` — retina output exceeds the 2000px multi-image limit and breaks visual QA.
 
 ### 4. Visually inspect every slide
 
-Read each exported PNG using the Read tool. Claude's **vision capability** sees the rendered slide exactly as a human would. For each slide, check:
+**Batch processing**: Read slides in batches of **2-3 at a time**. After each batch, write findings to a `qa-issues.md` file in the output directory, then run `/compact` to flush images from context before reading the next batch. This prevents context overflow on large decks.
+
+For each slide, check:
 
 - [ ] **Text overflow**: Is any text cut off at edges or bottom?
 - [ ] **Image sizing**: Are images readable or too small/too large?

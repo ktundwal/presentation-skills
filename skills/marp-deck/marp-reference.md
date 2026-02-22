@@ -294,7 +294,7 @@ section.accent h3 {
 
 ```bash
 # Export as individual PNG images (for visual QA)
-npx @marp-team/marp-cli deck.md --images png --image-scale 2 --allow-local-files -o slides/slide.png
+npx @marp-team/marp-cli deck.md --images png --allow-local-files -o slides/slide.png
 
 # Export as single PDF
 npx @marp-team/marp-cli deck.md --allow-local-files -o deck.pdf
